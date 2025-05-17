@@ -7,3 +7,7 @@ members = ["lib", "miner", "node", "wallet"]
 resolver = "2"
 
 [workspace.dependencies]
+btclib = { path = "lib" }
+miner = { path = "miner" }
+node = { path = "node" }
+wallet = { path = "wallet" }
