@@ -1,0 +1,23 @@
+[package]
+name = "lib"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+ecdsa = { version = "0.16.9", features = [
+    "signing",
+    "verifying",
+    "serde",
+    "pem",
+] }
+hex = "0.4.3"
+ciborium = "0.2.2"
+serde = { version = "1.0.198", features = ["derive"] }
+sha256 = "1.5.0"
+uint = "0.9.5"
+uuid = { version = "1.8.0", features = ["v4", "serde"] }
+chrono = { version = "0.4.38", features = ["serde"] }
+k256 = { version = "0.13.3", features = ["serde", "pem"] }
+rand = "0.9.1"
+thiserror = "1.0.59"
+bigdecimal = "0.4.5"
