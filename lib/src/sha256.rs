@@ -1,3 +1,5 @@
+#![allow(clippy::self_named_constructors)]
+
 use {crate::U256, serde::Serialize, sha256::digest, std::fmt};
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash)]

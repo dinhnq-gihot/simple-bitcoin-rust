@@ -9,8 +9,8 @@ pub struct Block {
 impl Block {
     pub fn new(header: BlockHeader, transactions: Vec<Transaction>) -> Self {
         Block {
-            header: header,
-            transactions: transactions,
+            header,
+            transactions,
         }
     }
 
@@ -74,10 +74,10 @@ impl Block {
     ) -> Result<()> {
         // coinbase tx is the first transaction in the block
         let coinbase_transaction = &self.transactions[0];
-        if coinbase_transaction.inputs.len() != 0 {
+        if coinbase_transaction.inputs.is_empty() {
             return Err(BtcError::InvalidTransaction);
         }
-        if coinbase_transaction.outputs.len() == 0 {
+        if coinbase_transaction.outputs.is_empty() {
             return Err(BtcError::InvalidTransaction);
         }
         let miner_fees = self.calculate_miner_fees(utxos)?;

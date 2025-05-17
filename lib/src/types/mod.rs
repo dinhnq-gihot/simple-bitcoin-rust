@@ -19,7 +19,7 @@ use {
     uuid::Uuid,
 };
 pub use {
-    block::Block,
+    block::{Block, BlockHeader},
     blockchain::Blockchain,
     transaction::{Transaction, TransactionInput, TransactionOutput},
 };

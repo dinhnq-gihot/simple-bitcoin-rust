@@ -1,3 +1,6 @@
+#![allow(clippy::manual_div_ceil)]
+#![allow(clippy::assign_op_pattern)]
+
 extern crate ciborium;
 #[macro_use]
 extern crate serde;
@@ -5,11 +8,13 @@ extern crate sha256 as sha256_lib;
 
 pub mod crypto;
 pub mod error;
+pub mod network;
 pub mod sha256;
 pub mod types;
 pub mod util;
 
 use uint::construct_uint;
+
 construct_uint! {
     // Construct an unsigned 256-bit integer
     // consisting of 4 x 64-bit words
@@ -34,3 +39,5 @@ pub const MIN_TARGET: U256 = U256([
 pub const DIFFICULTY_UPDATE_INTERVAL: u64 = 50;
 // maximum mempool transaction age in seconds
 pub const MAX_MEMPOOL_TRANSACTION_AGE: u64 = 600;
+// maximum amount of transactions allowed in a block
+pub const BLOCK_TRANSACTION_CAP: usize = 20;

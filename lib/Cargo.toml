@@ -1,5 +1,5 @@
 [package]
-name = "lib"
+name = "btclib"
 version.workspace = true
 edition.workspace = true
 
@@ -21,3 +21,5 @@ k256 = { version = "0.13.3", features = ["serde", "pem"] }
 rand = "0.9.1"
 thiserror = "1.0.59"
 bigdecimal = "0.4.5"
+spki = { version = "0.7.3", features = ["pem"] }
+tokio = { version = "1.37.0", features = ["full"] }

@@ -9,6 +9,12 @@ pub struct Blockchain {
     mempool: Vec<(DateTime<Utc>, Transaction)>,
 }
 
+impl Default for Blockchain {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Blockchain {
     pub fn new() -> Self {
         Blockchain {
@@ -36,6 +42,10 @@ impl Blockchain {
     pub fn mempool(&self) -> &[(DateTime<Utc>, Transaction)] {
         // later, we will also need to keep track  of time
         &self.mempool
+    }
+
+    pub fn block_height(&self) -> u64 {
+        self.blocks.len() as u64
     }
 }
 
@@ -124,7 +134,7 @@ impl Blockchain {
         // calculate the ideal number of seconds
         let target_seconds = crate::IDEAL_BLOCK_TIME * crate::DIFFICULTY_UPDATE_INTERVAL;
         // multiply the current target by actual time divided by  ideal time
-        let new_target = BigDecimal::parse_bytes(&self.target.to_string().as_bytes(), 10)
+        let new_target = BigDecimal::parse_bytes(self.target.to_string().as_bytes(), 10)
             .expect("BUG: impossible")
             * (BigDecimal::from(time_diff_seconds) / BigDecimal::from(target_seconds));
         // cut off decimal point and everything after
@@ -248,8 +258,7 @@ impl Blockchain {
                 .sum::<u64>();
             let all_outputs: u64 = transaction.outputs.iter().map(|output| output.value).sum();
 
-            let miner_fee = all_inputs - all_outputs;
-            miner_fee
+            all_inputs - all_outputs
         });
         Ok(())
     }
@@ -285,8 +294,10 @@ impl Blockchain {
         }
     }
 
-    pub fn block_height(&self) -> u64 {
-        self.blocks.len() as u64
+    pub fn calculate_block_reward(&self) -> u64 {
+        let block_height = self.block_height();
+        let halvings = block_height / crate::HALVING_INTERVAL;
+        (crate::INITIAL_REWARD * 10u64.pow(8)) >> halvings
     }
 }
 

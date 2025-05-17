@@ -27,10 +27,7 @@ impl TransactionOutput {
 
 impl Transaction {
     pub fn new(inputs: Vec<TransactionInput>, outputs: Vec<TransactionOutput>) -> Self {
-        Transaction {
-            inputs: inputs,
-            outputs: outputs,
-        }
+        Transaction { inputs, outputs }
     }
     pub fn hash(&self) -> Hash {
         Hash::hash(self)
